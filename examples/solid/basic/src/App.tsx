@@ -1,23 +1,16 @@
 import {
-<<<<<<< HEAD
-=======
   Loader,
   LoaderClient,
   LoaderClientProvider,
   useLoaderInstance,
 } from '@tanstack/solid-loaders'
 import {
->>>>>>> d9fc50851eeabe8ae7cd2e7dc36f04cf1bbf9c22
   Link,
   Outlet,
   RootRoute,
   Route,
   RouterProvider,
   SolidRouter,
-<<<<<<< HEAD
-} from '@tanstack/solid-router'
-import { Component } from 'solid-js'
-=======
   useParams,
 } from '@tanstack/solid-router'
 import { Component, For } from 'solid-js'
@@ -47,7 +40,7 @@ const postLoader = new Loader({
     await new Promise((r) => setTimeout(r, 500))
 
     if (postId === '5') {
-      throw new Error('Postid === 5, Showing error boundary')
+      throw new Error('Postid === 5. Example Error Boundary catching request')
     }
 
     return await fetch(
@@ -68,7 +61,6 @@ declare module '@tanstack/solid-loaders' {
     loaderClient: typeof loaderClient
   }
 }
->>>>>>> d9fc50851eeabe8ae7cd2e7dc36f04cf1bbf9c22
 
 const rootRoute = new RootRoute({
   component: () => {
@@ -112,21 +104,11 @@ const indexRoute = new Route({
   },
 })
 
-<<<<<<< HEAD
-const postRoute = new Route({
-  getParentRoute: () => rootRoute,
-  path: '/posts',
-  component: () => {
-    return (
-      <div class="p-2">
-        <h3>Welcome to Post!</h3>
-=======
 const Spinner = () => <div class="inline-block animate-spin px-3">⍥</div>
 
 const postsRoute = new Route({
   getParentRoute: () => rootRoute,
   path: '/posts',
-  wrapInSuspense: true,
   pendingComponent: Spinner,
   onLoad: ({ preload }) =>
     loaderClient.getLoader({ key: 'posts' }).load({ preload }),
@@ -160,7 +142,6 @@ const postsRoute = new Route({
       </div>
     )
   },
-  errorComponent: () => 'Oh crap',
 })
 
 const PostsIndexRoute = new Route({
@@ -187,30 +168,25 @@ const postRoute = new Route({
 
     const postLoaderInstance = useLoaderInstance({
       key: postLoader.key,
-      variables: params().postId,
+      variables: params.postId,
       // strict: false,
     })
 
-    const post = () => postLoaderInstance.state.data
-
     return (
       <div class="space-y-2">
-        <h4 class="text-xl font-bold underline">{post().title}</h4>
-        <div class="text-sm">{post().body}</div>
->>>>>>> d9fc50851eeabe8ae7cd2e7dc36f04cf1bbf9c22
+        <h4 class="text-xl font-bold underline">
+          {postLoaderInstance.state.data.title}
+        </h4>
+        <div class="text-sm">{postLoaderInstance.state.data.body}</div>
       </div>
     )
   },
 })
 
-<<<<<<< HEAD
-const routeTree = rootRoute.addChildren([indexRoute, postRoute])
-=======
 const routeTree = rootRoute.addChildren([
   indexRoute,
   postsRoute.addChildren([PostsIndexRoute, postRoute]),
 ])
->>>>>>> d9fc50851eeabe8ae7cd2e7dc36f04cf1bbf9c22
 
 const router = new SolidRouter({
   routeTree,
@@ -219,15 +195,9 @@ const router = new SolidRouter({
 
 const Root: Component = () => {
   return (
-<<<<<<< HEAD
-    <RouterProvider router={router}>
-      <></>
-    </RouterProvider>
-=======
     <LoaderClientProvider loaderClient={loaderClient}>
       <RouterProvider router={router} />
     </LoaderClientProvider>
->>>>>>> d9fc50851eeabe8ae7cd2e7dc36f04cf1bbf9c22
   )
 }
 
