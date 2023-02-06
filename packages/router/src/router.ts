@@ -6,12 +6,17 @@ import invariant from 'tiny-invariant'
 import { GetFrameworkGeneric } from './frameworks'
 
 import {
+  createBrowserHistory,
+  createMemoryHistory,
+  RouterHistory
+} from './history'
+import {
   LinkInfo,
   LinkOptions,
   NavigateOptions,
-  ToOptions,
-  ValidFromPath,
   ResolveRelativePath,
+  ToOptions,
+  ValidFromPath
 } from './link'
 import {
   cleanPath,
@@ -21,43 +26,31 @@ import {
   parsePathname,
   resolvePath,
   trimPath,
-  trimPathLeft,
+  trimPathLeft
 } from './path'
 import {
-  Route,
+  AnyContext,
   AnyPathParams,
+  AnyRoute,
   AnySearchSchema,
   LoaderContext,
-  SearchFilter,
-  AnyRoute,
   RootRoute,
-  AnyContext,
+  Route
 } from './route'
-import {
-  RoutesInfo,
-  AnyRoutesInfo,
-  RoutesById,
-  DefaultRoutesInfo,
-} from './routeInfo'
+import { AnyRoutesInfo, RoutesById, RoutesInfo } from './routeInfo'
 import { AnyRouteMatch, RouteMatch, RouteMatchStore } from './routeMatch'
 import { defaultParseSearch, defaultStringifySearch } from './searchParams'
 import {
   functionalUpdate,
   last,
   NoInfer,
+  partialDeepEqual,
   pick,
   PickAsRequired,
-  PickRequired,
-  Timeout,
-  Updater,
   replaceEqualDeep,
-  partialDeepEqual,
+  Timeout,
+  Updater
 } from './utils'
-import {
-  createBrowserHistory,
-  createMemoryHistory,
-  RouterHistory,
-} from './history'
 
 export interface Register {
   // router: Router
